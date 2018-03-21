@@ -1,10 +1,30 @@
 <?php
 
+namespace controllers;
+
 use Phalcon\Mvc\Controller;
 use Phalcon\Http\Response;
 use Phalcon\Di;
 
-class UserController extends Controller {
+class RobotsController extends Controller {
+
+    /**
+     * Return all robots
+     */
+    public function getAllRobotsAction() {
+        $sql = 'SELECT * FROM Droids\Mechanoids\Robots ORDER by name';
+        $robots = $this->app->modelsManager->executeQuery($sql);
+        $data = [];
+
+        foreach ($robots as $robot) {
+            $data[] = [
+                'id' => $robot->id,
+                'name' => $robot->name,
+            ];
+        }
+
+        echo json_encode($data);
+    }
 
     /**
      * @param int $id

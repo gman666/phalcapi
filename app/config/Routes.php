@@ -1,5 +1,7 @@
 <?php
 
+namespace config;
+
 class Routes {
     public function __construct($app) {
 
@@ -8,12 +10,13 @@ class Routes {
             echo 'page was not found';
         });
         
-        $app->get('/api/user/{id:[0-9]+}', function ($id) { 
-            return (new UserController())->getUserByIdAction($id);
+        $app->get('/api/robots', function () {
+            return (new \controllers\RobotsController())->getAllRobotsAction();
         });
 
-        $app->post('/api/user', function () {
-            return (new UserController())->addUserAction();
+        $app->get('/api/robots/{id:[0-9]+}', function ($id) { 
+            return (new \controllers\RobotsController())->getUserByIdAction($id);
         });
+
     }
 }
